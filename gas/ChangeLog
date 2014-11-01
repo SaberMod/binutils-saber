@@ -1,3 +1,48 @@
+2014-10-30  Nick Clifton  <nickc@redhat.com>
+
+	Apply trunk patches
+	2014-10-30  Dr Philipp Tomsich  <philipp.tomsich@theobroma-systems.com>
+
+	* config/tc-aarch64.h (MAX_MEM_FOR_RS_ALIGN_CODE): Define to 7.
+	* config/tc-aarch64.c (aarch64_handle_align): Rewrite to handle
+	large alignments with a constant fragment size of
+	MAX_MEM_FOR_RS_ALIGN_CODE.
+
+2014-10-29  Nick Clifton  <nickc@redhat.com>
+
+	* po/uk.po: New Ukranian translation.
+
+2014-10-28  Matthew Fortune  <matthew.fortune@imgtec.com>
+
+	Apply trunk patches
+	2014-10-22  Matthew Fortune  <matthew.fortune@imgtec.com>
+	* doc/as.texinfo: Update the MIPS FP ABI descriptions.
+	* doc/c-mips.texi: Spell check and correct throughout.
+
+2014-10-28  Matthew Fortune  <matthew.fortune@imgtec.com>
+
+	Apply trunk patches
+	2014-10-21  Maciej W. Rozycki  <macro@codesourcery.com>
+	* config/tc-mips.c (s_insn): Set file options.
+
+2014-10-28  Matthew Fortune  <matthew.fortune@imgtec.com>
+
+	Apply trunk patches
+	2014-10-17  Matthew Fortune  <matthew.fortune@imgtec.com>
+	* doc/c-mips.texi: Fix bad @value references.
+
+2014-10-28  Alan Modra  <amodra@gmail.com>
+	Apply trunk patches
+	2014-10-18  Alan Modra  <amodra@gmail.com>
+	PR 17493
+	* write.c (adjust_reloc_syms): Don't allow symbols in reg_section
+	to be reduced to reg_section section symbol.
+	* gas/config/tc-i386.c (i386_finalize_immediate): Reject all
+	reg_section immediates.
+
+	2014-10-15  Chen Gang  <gang.chen.5i5j@gmail.com>
+	* config/tc-tic4x.c (md_assemble): Correct strncat size.
+
 2014-10-15  Tristan Gingold  <gingold@adacore.com>
 
 	* configure: Regenerate.

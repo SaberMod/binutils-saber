@@ -12591,24 +12591,26 @@ struct mips_elf_find_line
 };
 
 bfd_boolean
-_bfd_mips_elf_find_nearest_line (bfd *abfd, asection *section,
-				 asymbol **symbols, bfd_vma offset,
+_bfd_mips_elf_find_nearest_line (bfd *abfd, asymbol **symbols,
+				 asection *section, bfd_vma offset,
 				 const char **filename_ptr,
 				 const char **functionname_ptr,
-				 unsigned int *line_ptr)
+				 unsigned int *line_ptr,
+				 unsigned int *discriminator_ptr)
 {
   asection *msec;
 
-  if (_bfd_dwarf1_find_nearest_line (abfd, section, symbols, offset,
+  if (_bfd_dwarf2_find_nearest_line (abfd, symbols, NULL, section, offset,
 				     filename_ptr, functionname_ptr,
-				     line_ptr))
+				     line_ptr, discriminator_ptr,
+				     dwarf_debug_sections,
+				     ABI_64_P (abfd) ? 8 : 0,
+				     &elf_tdata (abfd)->dwarf2_find_line_info))
     return TRUE;
 
-  if (_bfd_dwarf2_find_nearest_line (abfd, dwarf_debug_sections,
-                                     section, symbols, offset,
+  if (_bfd_dwarf1_find_nearest_line (abfd, symbols, section, offset,
 				     filename_ptr, functionname_ptr,
-				     line_ptr, NULL, ABI_64_P (abfd) ? 8 : 0,
-				     &elf_tdata (abfd)->dwarf2_find_line_info))
+				     line_ptr))
     return TRUE;
 
   msec = bfd_get_section_by_name (abfd, ".mdebug");
@@ -12687,9 +12689,9 @@ _bfd_mips_elf_find_nearest_line (bfd *abfd, asection *section,
 
   /* Fall back on the generic ELF find_nearest_line routine.  */
 
-  return _bfd_elf_find_nearest_line (abfd, section, symbols, offset,
+  return _bfd_elf_find_nearest_line (abfd, symbols, section, offset,
 				     filename_ptr, functionname_ptr,
-				     line_ptr);
+				     line_ptr, discriminator_ptr);
 }
 
 bfd_boolean
@@ -15505,6 +15507,8 @@ print_mips_ases (FILE *file, unsigned int mask)
     fputs ("\n\tXPA ASE", file);
   if (mask == 0)
     fprintf (file, "\n\t%s", _("None"));
+  else if ((mask & ~AFL_ASE_MASK) != 0)
+    fprintf (stdout, "\n\t%s (%x)", _("Unknown"), mask & ~AFL_ASE_MASK);
 }
 
 static void
@@ -15570,7 +15574,7 @@ print_mips_isa_ext (FILE *file, unsigned int isa_ext)
       fputs ("ST Microelectronics Loongson 2F", file);
       break;
     default:
-      fputs (_("Unknown"), file);
+      fprintf (file, "%s (%d)", _("Unknown"), isa_ext);
       break;
     }
 }

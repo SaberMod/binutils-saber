@@ -1,3 +1,20 @@
+2014-10-29  Nick Clifton  <nickc@redhat.com>
+
+	* po/bg.po: Updated Bulgarian translation.
+
+2014-10-28  Alan Modra  <amodra@gmail.com>
+
+	Apply trunk patches
+	2014-10-16  Alan Modra  <amodra@gmail.com>
+	PR 17488
+	* emultempl/ppc64elf.em (gld${EMULATION_NAME}_finish): Don't attempt
+	to access ELF header e_flags when not ppc64 ELF output.
+
+2014-10-24  Tejas Belagod  <tejas.belagod@arm.com>
+
+	* emultempl/aarch64elf.em: Add command-line option for erratum
+	835769.
+
 2014-10-17  Hans-Peter Nilsson  <hp@axis.com>
 
 	Backport "implement --print-sysroot in ld" from master

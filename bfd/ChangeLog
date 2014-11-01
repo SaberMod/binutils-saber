@@ -1,3 +1,249 @@
+2014-10-31  Nick Clifton  <nickc@redhat.com>
+
+	Apply trunk patch:
+
+	2014-10-30  Nick Clifton  <nickc@redhat.com>
+	PR binutils/17512
+	* ihex.c (ihex_scan): Fix typo in invocation of ihex_bad_byte.
+	* coffgen.c (coff_get_normalized_symtab): Prevent buffer overrun.
+
+2014-10-30  Nick Clifton  <nickc@redhat.com>
+
+	Appy trunk patch:
+
+	2014-10-29  Nick Clifton  <nickc@redhat.com>
+	* elf.c (bfd_section_from_shdr): Fix heap use after free memory
+	leak.
+
+2014-10-28  Matthew Fortune  <matthew.fortune@imgtec.com>
+
+	Apply trunk patches:
+
+	2014-10-22  Matthew Fortune  <matthew.fortune@imgtec.com>
+	* elfxx-mips.c (print_mips_ases): Print unknown ASEs.
+	(print_mips_isa_ext): Print the value of an unknown extension.
+
+2014-10-28  Nick Clifton  <nickc@redhat.com>
+
+	Apply trunk patches:
+
+	2014-10-28  Nick Clifton  <nickc@redhat.com>
+	PR binutils/17512
+	* elf.c (bfd_section_from_shdr): Allocate and free the recursion
+	detection table on a per-bfd basis.
+	* peXXigen.c (pe_print_edata): Handle binaries with a truncated
+	export table.
+
+	2014-10-28  Andreas Schwab  <schwab@suse.de>
+		    Nick Clifton  <nickc@redhat.com>
+	PR binutils/17510
+	* srec.c (srec_bad_byte): Increase size of buf to allow for
+	negative values.
+	(srec_scan): Use an unsigned char buffer to hold header bytes.
+
+	2014-10-27  Nick Clifton  <nickc@redhat.com>
+	PR binutils/17512
+	* elf.c (bfd_section_from_shdr): Detect and warn about ELF
+	binaries with a group of sections linked by the string table
+	indicies.
+	* peXXigen.c (_bfd_XXi_swap_aouthdr_in): Handle corrupt binaries
+	with an invalid value for NumberOfRvaAndSizes.
+	(pe_print_edata): Detect out of range rvas and entry counts for
+	the Export Address table, Name Pointer table and Ordinal table.
+
+	PR binutils/17510
+	* elf.c (setup_group): Improve handling of corrupt group
+	sections.
+
+2014-10-28  Alan Modra  <amodra@gmail.com>
+
+	Apply trunk patches:
+
+	2014-10-21  Alan Modra  <amodra@gmail.com>
+	* elf64-ppc.c (ppc64_elf_tls_optimize): Ignore relocs against toc
+	entries that aren't a multiple of 8 rather than failing assertion.
+
+	2014-10-21  Alan Modra  <amodra@gmail.com>
+	* elf64-ppc.c (ppc64_elf_size_stubs): Add gcc-4.9 libgomp functions
+	to thread_starter.
+
+	2014-10-18  Alan Modra  <amodra@gmail.com>
+	* elf64-ppc.c (ppc64_elf_add_symbol_hook): If function code
+	section for function symbols defined in .opd is discarded, let
+	the symbol appear to be undefined.
+	(opd_entry_value): Ensure the result section is that for the
+	function code section in the same object as the OPD entry.
+
+	2014-10-16  Alan Modra  <amodra@gmail.com>
+	PR 17492
+	* elf32-arm.c (elf32_arm_add_symbol_hook): Only set has_gnu_symbols
+	on ELF output bfd.
+	* elf32-i386.c (elf_i386_add_symbol_hook): Likewise.
+	* elf32-m68k.c (elf_m68k_add_symbol_hook): Likewise.
+	* elf32-ppc.c (ppc_elf_add_symbol_hook): Likewise.
+	* elf32-sparc.c (elf32_sparc_add_symbol_hook): Likewise.
+	* elf64-ppc.c (ppc64_elf_add_symbol_hook): Likewise.
+	* elf64-sparc.c (elf64_sparc_add_symbol_hook): Likewise.
+	* elf64-x86-64.c (elf_x86_64_add_symbol_hook): Likewise.
+	* elfxx-aarch64.c (_bfd_aarch64_elf_add_symbol_hook): Likewise.
+	* elf-s390-common.c (elf_s390_add_symbol_hook): Likewise.  Handle
+	STB_GNU_UNIQUE too.
+
+	2014-10-16  Alan Modra  <amodra@gmail.com>
+	* elf64-ppc.c (ppc64_elf_before_check_relocs): Do .opd processing
+	even when output is not ppc64 ELF.  Remove redundant tests on
+	type of input bfd.
+
+	2014-10-15  Alan Modra  <amodra@gmail.com>
+	PR 17481
+	* aoutx.h (NAME (aout, find_nearest_line)): Add "discriminator_ptr"
+	param, group "section" and "offset" params.  Zero discriminator.
+	* bfd.c (bfd_find_nearest_line): Implement with new
+	_bfd_find_nearest_line.
+	(bfd_find_nearest_line_discriminator): Likewise.
+	* coff-i386.c (_bfd_generic_find_nearest_line_discriminator): Don't
+	define.
+	* coff-rs6000.c (xcoff_find_nearest_line,
+	xcoff_find_nearest_line_discriminator): Delete.
+	(_bfd_xcoff_find_nearest_line): Don't define.
+	(_bfd_xcoff_find_nearest_line): Define as coff_find_nearest_line.
+	* coff-x86_64.c (_bfd_generic_find_nearest_line_discriminator): Don't
+	define.
+	* coff64-rs6000.c (rs6000_xcoff64_vec, rs6000_xcoff64_aix_vec): Adjust.
+	* coffgen.c (coff_find_nearest_line_with_names): Reorder params,
+	adjust _bfd_dwarf2_find_nearest_line call.
+	(coff_find_nearest_line): Add "discriminator_ptr" param, reorder
+	others.  Set discriminator.  Adjust call.
+	(coff_find_nearest_line_discriminator): Delete.
+	* dwarf1.c (_bfd_dwarf1_find_nearest_line): Reorder params.
+	* dwarf2.c (find_line): Rename to..
+	(_bfd_dwarf2_find_nearest_line): ..this, reordering params.
+	Simplify setting of do_line.  Delete old function.
+	(_bfd_dwarf2_find_line): Delete.
+	* ecoff.c (_bfd_ecoff_find_nearest_line): Reorder params, add
+	discriminator_ptr and set it.
+	* elf-bfd.h (_bfd_elf_find_nearest_line): Update prototype.
+	(_bfd_elf_find_nearest_line_discriminator): Delete.
+	(_bfd_elf_find_line_discriminator): Delete.
+	(_bfd_generic_find_nearest_line_discriminator): Don't define.
+	* elf.c (elf_find_function): Reorder params.
+	(_bfd_elf_find_nearest_line): Reorder params, add discriminator_ptr.
+	Adjust calls.
+	(_bfd_elf_find_nearest_line_discriminator): Delete.
+	(_bfd_elf_find_line): Adjust call.
+	* elf32-arm.c (arm_elf_find_function): Reorder params.
+	(elf32_arm_find_nearest_line): Reorder params, add discriminator_ptr.
+	Adjust calls.
+	* elf64-alpha.c (elf64_alpha_find_nearest_line): Similarly.
+	* elfnn-aarch64.c (aarch64_elf_find_function): Reorder params.
+	(elfNN_aarch64_find_nearest_line): Reorder params, add
+	discriminator_ptr.  Adjust calls.
+	* elfxx-mips.c (_bfd_mips_elf_find_nearest_line): Similarly.
+	* elfxx-mips.h (_bfd_mips_elf_find_nearest_line): Update prototype.
+	* libaout.h (NAME (aout, find_nearest_line)): Update prototype.
+	* libbfd-in.h (_bfd_nosymbols_find_nearest_line): Update.
+	(_bfd_dwarf1_find_nearest_line): Likewise.
+	(_bfd_dwarf2_find_nearest_line): Likewise.
+	(_bfd_dwarf2_find_line): Delete.
+	(_bfd_generic_find_nearest_line_discriminator): Delete.
+	* libbfd.c (_bfd_generic_find_nearest_line_discriminator): Delete.
+	* libcoff-in.h (coff_find_nearest_line): Update prototype.
+	(coff_find_nearest_line_discriminator): Delete.
+	(coff_find_nearest_line_with_names): Update prototype.
+	* libecoff.h (_bfd_ecoff_find_nearest_line): Update prototype.
+	* mach-o.c (bfd_mach_o_find_nearest_line): Reorder params, add
+	discriminator_ptr.  Adjust calls.
+	* mach-o.h (bfd_mach_o_find_nearest_line): Update prototype.
+	* pdp11.c (NAME (aout, find_nearest_line)): Reorder params, add
+	discriminator_ptr and set.
+	* som.c (som_find_nearest_line): Similarly.
+	* targets.c (BFD_JUMP_TABLE_SYMBOLS): Delete entry for
+	_bfd_find_nearest_line_discriminator.
+	(struct bfd_target <_bfd_find_nearest_line>): Adjust prototype.
+	(struct bfd_target <_bfd_find_nearest_line_discriminator>): Delete.
+	* vms-alpha.c (_bfd_vms_find_nearest_dst_line): Rename to..
+	(_bfd_vms_find_nearest_line): ..this.  Reorder params, add
+	"discriminator" and set.
+	(_bfd_vms_find_nearest_line_discriminator): Delete.
+	(_bfd_generic_find_nearest_line_discriminator): Don't define.
+	(alpha_vms_find_nearest_line): Update define.
+	* bfd-in2.h: Regenerate.
+	* libbfd.h: Regenerate.
+	* libcoff.h: Regenerate.
+
+	2014-10-15  Alan Modra  <amodra@gmail.com>
+	* targets.c (BFD_JUMP_TABLE_SYMBOLS): Use NAME##_find_line.
+	* aout-adobe.c (aout_32_find_line): Define.
+	(aout_32_bfd_make_debug_symbol, aout_32_bfd_reloc_type_lookup,
+	aout_32_bfd_reloc_name_lookup): Define using _bfd_nosymbols define.
+	* aout-target.h (MY_find_line): Define.
+	* aout-tic30.c (MY_find_line): Define.
+	* binary.c (binary_find_line): Define.
+	* bout.c (aout_32_find_line): Define.
+	* coff-rs6000.c (_bfd_xcoff_find_line): Define.
+	* coff64-rs6000.c (rs6000_xcoff64_vec): Use coff_find_line.
+	(rs6000_xcoff64_aix_vec): Likewise.
+	* elf-bfd.h (_bfd_generic_find_line): Don't define.
+	* elfxx-target.h (bfd_elfNN_find_line): Define.
+	* i386msdos.c (msdos_find_line): Define.
+	* i386os9k.c (aout_32_find_line): Define.
+	* ieee.c (ieee_find_nearest_line, ieee_find_inliner_info): Delete func.
+	(ieee_find_nearest_line, ieee_find_line,
+	ieee_find_inliner_info): Define.
+	* ihex.c (ihex_find_line): Define.
+	* libbfd-in.h (_bfd_nosymbols_find_line): Define.
+	(_bfd_generic_find_line): Don't define.
+	* libbfd.c (_bfd_generic_find_line): Delete.
+	* libcoff-in.h (coff_find_line): Define.
+	* libecoff.h (_bfd_ecoff_find_line): Define.
+	* mach-o.h (bfd_mach_o_find_line): Define.
+	* mmo.c (mmo_find_line): Define.
+	* nlm-target.h (nlm_find_line): Define.
+	* oasys.c (oasys_find_nearest_line, oasys_find_inliner_info): Delete.
+	(oasys_find_nearest_line, oasys_find_line,
+	oasys_find_inliner_info): Define.
+	* pef.c (bfd_pef_find_line): Define.
+	* plugin.c (bfd_plugin_find_line): Define.
+	* ppcboot.c (ppcboot_find_line): Define.
+	* som.c (som_find_line): Define.
+	* srec.c (srec_find_line): Define.
+	* tekhex.c (tekhex_find_line): Define.
+	* versados.c (versados_find_line): Define.
+	* vms-alpha.c (alpha_vms_find_line): Define.
+	* xsym.c (bfd_sym_find_line): Define.
+	* bfd-in2.h: Regenerate.
+	* libbfd.h: Regenerate.
+	* libcoff.h: Regenerate.
+
+2014-10-24  Tejas Belagod  <tejas.belagod@arm.com>
+
+	* bfd-in.h (bfd_elf64_aarch64_set_options): Add a parameter.
+	* bfd-in2.h (bfd_elf64_aarch64_set_options): Likewise.
+	* elfnn-aarch64.c (aarch64_erratum_835769_stub): New.
+	(elf_aarch64_stub_type): Add new type
+	aarch64_stub_erratum_835769_veneer.
+	(elf_aarch64_stub_hash_entry): New fields for erratum 835769.
+	(aarch64_erratum_835769_fix): New data struct to record erratum
+	835769.
+	(elf_aarch64_link_hash_table: Global flags for 835769.
+	(aarch64_build_one_stub): Add case for 835769.
+	(aarch64_size_one_stub): Likewise.
+	(aarch64_mem_op_p, aarch64_mlxl_p,
+	aarch64_erratum_sequence,erratum_835769_scan):
+	New. Decode and scan functions for erratum 835769.
+	(elf_aarch64_create_or_find_stub_sec): New.
+	(elfNN_aarch64_size_stubs): Look for erratum 835769 and record
+	them.
+	(bfd_elfNN_aarch64_set_options: Set global flag for 835769.
+	(erratum_835769_branch_to_stub_data,
+	make_branch_to_erratum_835769_stub):New. Connect up all the
+	erratum stubs to occurances by branches.
+	(elfNN_aarch64_write_section): New hook.
+	(aarch64_map_one_stub): Output erratum stub symbol.
+	(elfNN_aarch64_size_dynamic_sections): Init mapping symbol
+	information for erratum 835769.
+	(elf_backend_write_section): Define.
+
 2014-10-14  Tristan Gingold  <gingold@adacore.com>
 
 	* version.m4: Bump version to 2.24.90
