@@ -1,3 +1,31 @@
+2014-11-11  Alan Modra  <amodra@gmail.com>
+
+	* elf-eh-frame.c (_bfd_elf_write_section_eh_frame): Adjust section
+	size check to account for possible zero terminator.
+
+2014-11-10  Matthew Fortune  <matthew.fortune@imgtec.com>
+
+	Apply trunk patch:
+	* elfxx-mips.c (update_mips_abiflags_isa): Add E_MIPS_ARCH_32R6
+	and E_MIPS_ARCH_64R6 support.
+
+2014-11-07  H.J. Lu  <hongjiu.lu@intel.com>
+
+	Apply trunk patch:
+	2014-11-07  H.J. Lu  <hongjiu.lu@intel.com>
+
+	PR ld/17482
+	* elf64-x86-64.c (elf_x86_64_relocate_section): Update comments
+	for IE->LE transition.
+
+2014-11-04  Tristan Gingold  <gingold@adacore.com>
+
+	* development.sh: Set development to false.
+
+2014-11-03  Nick Clifton  <nickc@redhat.com>
+
+	* po/fi.po: Updated Finnish translation.
+
 2014-10-31  Nick Clifton  <nickc@redhat.com>
 
 	Apply trunk patch:
