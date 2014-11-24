@@ -1133,6 +1133,9 @@ Specify a stack size for in an ELF @code{PT_GNU_STACK} segment.
 Specifying zero will override any default non-zero sized
 @code{PT_GNU_STACK} segment creation.
 
+@item bndplt
+Always generate BND prefix in PLT entries. Supported for Linux/x86_64.
+
 @end table
 
 Other keywords are ignored for Solaris compatibility.
@@ -7049,9 +7052,10 @@ off this feature.
 @item --plt-align
 @itemx --no-plt-align
 Use these options to control whether individual PLT call stubs are
-aligned to a 32-byte boundary, or to the specified power of two
-boundary when using @code{--plt-align=}.  By default PLT call stubs
-are packed tightly.
+padded so that they don't cross a 32-byte boundary, or to the
+specified power of two boundary when using @code{--plt-align=}.  Note
+that this isn't alignment in the usual sense.  By default PLT call
+stubs are packed tightly.
 
 @cindex PowerPC64 PLT call stub static chain
 @kindex --plt-static-chain
