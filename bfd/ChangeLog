@@ -1,3 +1,67 @@
+2014-12-05  H.J. Lu  <hongjiu.lu@intel.com>
+
+	* elf64-x86-64.c (bfd_elf32_get_synthetic_symtab): New.
+
+2014-12-04  H.J. Lu  <hongjiu.lu@intel.com>
+
+	PR binutils/17677
+	* elf-bfd.h (_bfd_elf_ifunc_get_synthetic_symtab): New prototype.
+	* elf-ifunc.c (_bfd_elf_ifunc_get_synthetic_symtab): New
+	function.
+	* elf32-i386.c (elf_i386_plt_sym_val): Removed.
+	(elf_backend_plt_sym_val): Likewise.
+	(elf_i386_get_plt_sym_val): New.
+	(elf_i386_get_synthetic_symtab): Likewise.
+	(bfd_elf32_get_synthetic_symtab): Likewise.
+	* elf64-x86-64.c (elf_x86_64_plt_sym_val): Removed.
+	(elf_x86_64_plt_sym_val_offset_plt_bnd): Likewise.
+	(elf_backend_plt_sym_val): Likewise.
+	(elf_x86_64_get_plt_sym_val): New.
+	(elf_x86_64_get_synthetic_symtab): Use
+	_bfd_elf_ifunc_get_synthetic_symtab.
+	(bfd_elf64_get_synthetic_symtab): Don't undefine for NaCl.
+
+2014-12-03  H.J. Lu  <hongjiu.lu@intel.com>
+
+	* elf64-x86-64.c (elf_x86_64_create_dynamic_sections): Reformat.
+
+2014-12-02  H.J. Lu  <hongjiu.lu@intel.com>
+
+	* elf64-x86-64.c (elf_x86_64_relocate_section): Check
+	info->executable for symbols which need copy relocs.
+
+2014-12-02  H.J. Lu  <hongjiu.lu@intel.com>
+
+	* elf64-x86-64.c (elf_x86_64_check_relocs): Revert the last
+	change.
+	(elf_x86_64_adjust_dynamic_symbol): Don't check !info->shared
+	with ELIMINATE_COPY_RELOCS.
+	(elf_x86_64_allocate_dynrelocs): For PIE, discard space for
+	relocs against symbols which turn out to need copy relocs.
+
+2014-12-02  H.J. Lu  <hongjiu.lu@intel.com>
+
+	* elf64-x86-64.c (elf_x86_64_create_dynamic_sections): Always
+	allow copy relocs for building executables.
+	(elf_x86_64_check_relocs): Allow copy relocs for non-GOT
+	pc-relative relocation in shared object.
+	(elf_x86_64_adjust_dynamic_symbol): Allocate copy relocs for
+	PIE.
+	(elf_x86_64_relocate_section): Don't copy a pc-relative
+	relocation into the output file if the symbol needs copy reloc.
+
+2014-11-30  Alan Modra  <amodra@gmail.com>
+
+	PR 16452, 16457
+	* elflink.c (_bfd_elf_link_find_version_dependencies): Exclude
+	symbols from libraries that won't be listed in DT_NEEDED.
+	(elf_link_output_extsym): Don't output verdefs for such symbols.
+
+2014-11-24  Tejas Belagod  <tejas.belagod@arm.com>
+
+	* elfnn-aarch64.c (elf_aarch64_compare_mapping): New.
+	(erratum_835769_scan): Sort map list.
+
 2014-11-24  Alan Modra  <amodra@gmail.com>
 
 	* elf64-ppc.c (plt_stub_pad): Correct.

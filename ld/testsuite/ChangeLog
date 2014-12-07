@@ -1,3 +1,33 @@
+2014-12-03  H.J. Lu  <hongjiu.lu@intel.com>
+
+	* ld-x86-64/copyreloc-main.c: Removed.
+	* ld-x86-64/copyreloc-main.S: New.
+	* ld-x86-64/x86-64.exp: Replace copyreloc-main.c with
+	copyreloc-main.S.
+
+2014-12-02  H.J. Lu  <hongjiu.lu@intel.com>
+
+	* ld-x86-64/copyreloc-lib.c: New file.
+	* ld-x86-64/copyreloc-main.c: Likewise.
+	* ld-x86-64/copyreloc-main.out: Likewise.
+	* ld-x86-64/copyreloc-main1.rd: Likewise.
+	* ld-x86-64/copyreloc-main2.rd: Likewise.
+
+	* ld-x86-64/x86-64.exp: Run copyreloc tests.
+
+2014-12-01  H.J. Lu  <hongjiu.lu@intel.com>
+
+	PR ld/16452
+	PR ld/16457
+	* ld-elf/pr16452.map: New file.
+	* ld-elf/pr16452.od: Likewise.
+	* ld-elf/pr16452a.c: Likewise.
+	* ld-elf/pr16452b.c: Likewise.
+	* ld-elf/pr16457.od: Likewise.
+
+	* ld-elf/shared.exp (build_tests): Add tests for PR ld/16452 and
+	PR ld/16457.
+
 2014-11-18  H.J. Lu  <hongjiu.lu@intel.com>
 
 	* ld-x86-64/mpx.exp: Always run mpx3 and mpx4 tests in 64-bit.
