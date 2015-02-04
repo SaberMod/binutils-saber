@@ -332,11 +332,7 @@ init_sim_regno_table (struct gdbarch *arch)
      code.  */
   for (i = 0; i < sim_ppc_num_sprs; i++)
     {
-      const char *spr_name = sim_spr_register_name (i);
       int gdb_regno = -1;
-
-      if (spr_name != NULL)
-	gdb_regno = user_reg_map_name_to_regnum (arch, spr_name, -1);
 
       if (gdb_regno != -1)
 	set_sim_regno (sim_regno, gdb_regno, sim_ppc_spr0_regnum + i);
